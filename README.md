@@ -24,4 +24,4 @@ streamlit run streamlit_app.py
 ## 🔗 Link
 
 - 📓 Notebook: `Data_Lifecycle_Smart_Farming.ipynb`
-- 🌐 Dashboard: https://data-lifecycle-smart-farming-23082010134.streamlit.app/
+- 🌐 Dashboard: [Streamlit - Smart Agriculture Sensor Dashboard](https://data-lifecycle-smart-farming-23082010134.streamlit.app/)
