@@ -39,7 +39,7 @@ col1, col2, col3, col4 = st.columns(4)
 col1.metric("🌱 Soil Moisture", f"{round(latest['soil_moisture_%'], 1)}%")
 col2.metric("💧 Humidity", f"{round(latest['humidity_%'], 1)}%")
 col3.metric("🌡️ Temperature", f"{round(latest['temperature_C'], 1)}°C")
-ph_col = 'pH_level' if 'pH_level' in df.columns else 'pH'
+ph_col = 'pH_level' if 'pH_level' in df.columns else 'soil_pH'
 col4.metric("⚗️ pH Level", round(latest.get(ph_col, 0), 2))
 
 st.divider()
