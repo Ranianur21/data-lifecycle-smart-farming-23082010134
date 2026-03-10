@@ -7,9 +7,7 @@ import plotly.graph_objects as go
 
 st.set_page_config(page_title="Smart Farming Dashboard", page_icon="🌱", layout="wide")
 
-# ========================
 # LOAD DATA
-# ========================
 @st.cache_data
 def load_data():
     try:
@@ -21,9 +19,6 @@ def load_data():
 
 df = load_data()
 
-# ========================
-# SIDEBAR
-# ========================
 st.sidebar.title("⚙️ Settings")
 st.sidebar.markdown("**Time Series Sensor**")
 sensor_options = ['soil_moisture_%', 'temperature_C', 'humidity_%']
@@ -33,16 +28,11 @@ soil_threshold = 20
 humidity_threshold = 30
 temp_threshold = 40
 
-# ========================
-# HEADER
-# ========================
 st.title("🌾 Smart Agriculture Sensor Dashboard")
 st.caption(f"Total records: {len(df):,} | {df['timestamp'].min().date()} → {df['timestamp'].max().date()}")
 st.divider()
 
-# ========================
 # METRICS ROW
-# ========================
 latest = df.sort_values('timestamp').iloc[-1]
 
 col1, col2, col3, col4 = st.columns(4)
@@ -54,11 +44,9 @@ col4.metric("⚗️ pH Level", round(latest.get(ph_col, 0), 2))
 
 st.divider()
 
-# ========================
 # TIME SERIES
-# ========================
 st.subheader(f"📈 {selected_sensor.replace('_', ' ').title()} — Time Series")
-daily = df.set_index('timestamp')[selected_sensor].resample('D').mean()
+daily = df.set_index('timestamp')[selected_sensor].resample('ME').mean()
 
 fig, ax = plt.subplots(figsize=(9, 3.5))
 ax.plot(daily.index, daily.values, color='#2ea043', linewidth=1.8)
@@ -71,9 +59,7 @@ st.pyplot(fig)
 
 st.divider()
 
-# ========================
 # GAUGE
-# ========================
 st.subheader("🎯 Gauge — Soil Moisture")
 
 gauge_val = round(latest['soil_moisture_%'], 1)
@@ -120,9 +106,7 @@ with gcol_right:
 
 st.divider()
 
-# ========================
 # ALERT SYSTEM
-# ========================
 st.subheader("🚨 Alert System")
 alerts = []
 if latest['soil_moisture_%'] < soil_threshold:
@@ -140,9 +124,7 @@ else:
 
 st.divider()
 
-# ========================
 # HEATMAP + DATA QUALITY
-# ========================
 col_h, col_q = st.columns([3, 2])
 
 with col_h:
